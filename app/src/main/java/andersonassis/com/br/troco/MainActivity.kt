@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.Intent
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.view.WindowManager
@@ -135,6 +138,24 @@ class MainActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
     }
+
+
+    // INICIO DOS MENU calculadora
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.calc) { // CLICK DO BOTÃO CALCULADORA
+            /*val intent = Intent(applicationContext, Sobre::class.java)
+            startActivity(intent)
+            return true*/
+        }
+        return super.onOptionsItemSelected(item)
+    }//fim do menu sobre
 
 
 }//fim da classe Mainactivity
