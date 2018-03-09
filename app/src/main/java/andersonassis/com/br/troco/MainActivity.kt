@@ -1,9 +1,17 @@
 package andersonassis.com.br.troco
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.os.Build
+import android.support.annotation.RequiresApi
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.view.WindowManager
+
 
 class MainActivity : AppCompatActivity() {
     //declaração das variaveis
@@ -29,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         // click botão calcular
         calcular.setOnClickListener {
             calcula()
+            escondeTeclado()
         }
 
         //botão limpar limpa todas as variaveis
@@ -36,8 +45,11 @@ class MainActivity : AppCompatActivity() {
             conta = ""
             pago = ""
             troco = 0.0
+            vlr = 0
             result = ""
             resultCent = ""
+            ct = 0
+            i = 0
             valor_a_pagar.setText("")
             valor_pago.setText("")
             textoTroco.setText("")//text view
@@ -75,20 +87,27 @@ class MainActivity : AppCompatActivity() {
                     while (vlr != 0) {
                         ct = vlr / notas[i] //calcula a qtd de notas
                         if (ct != 0) {
-                            result += ("$ct" + " NOTAS(s) de R$" + notas[i] + "\n")
+                            if (i == 6) { // AQUI moedas de 1 real
+
+                                result += ("$ct" + " MOEDA de R$ " + notas[i] + "\n")
+                            } else {
+
+                                result += ("$ct" + " NOTA(s) de R$ " + notas[i] + "\n")
+                            }
+
                             vlr = vlr % notas[i]
                         }
                         i = i + 1; // próxima nota
                         textomoedas.setText(result)//text view
                     }
 
-                    // valores centavos
+                    // valores centavos fração
                     vlr = Math.round((troco - troco.toInt()) * 100).toInt()
                     i = 0
                     while (vlr != 0) {
                         ct = vlr / centavos[i]
                         if (ct != 0) {
-                            resultCent += ("$ct" + " MOEDAS(s) de " + centavos[i] + "Centavos(s) \n")
+                            resultCent += ("$ct" + " MOEDA(s) de " + centavos[i] + " Centavos(s) \n")
                             vlr = vlr % centavos[i]
 
                         }
@@ -101,13 +120,21 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-
         } else {
             Toast.makeText(this@MainActivity, "NÃO É PERMITIDO CAMPOS EM BRANCO", Toast.LENGTH_SHORT).show();
         }
 
-
     }//FIM DA FUNÇÃO CALCULAR
+
+
+     //função para esconder o teclado no click do calcular
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
+    fun escondeTeclado() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(valor_pago.getWindowToken(), 0)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+
+    }
 
 
 }//fim da classe Mainactivity
