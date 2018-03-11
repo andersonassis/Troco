@@ -1,5 +1,7 @@
 package andersonassis.com.br.troco.FragmentCalc;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import andersonassis.com.br.troco.MainActivity;
 import andersonassis.com.br.troco.R;
 import andersonassis.com.br.troco.utils.AlertUtils;
 
@@ -16,6 +20,7 @@ import andersonassis.com.br.troco.utils.AlertUtils;
  */
 
 public class MainFragment  extends Fragment implements View.OnClickListener {
+     Context c;
 
     /* duas variávies do tipo double pra efetuar as operações */
     private double operador1;
@@ -57,7 +62,7 @@ public class MainFragment  extends Fragment implements View.OnClickListener {
     /* componente button para limpar o visor da calculadora */
     private Button bt_limpar;
 
-    /* componente button que fecha o aplicativo */
+    /* componente button que captura valor pra ser usado no troco */
     private Button bt_capt;
 
     @Override
@@ -159,6 +164,8 @@ public class MainFragment  extends Fragment implements View.OnClickListener {
     private void limparVisor() {
 
         txt_visor.setText("");
+        operador2 = 0.0;
+
 
     }
 
@@ -166,22 +173,22 @@ public class MainFragment  extends Fragment implements View.OnClickListener {
 
         this.operadores = operadores;
 
-        if (operadores == "+") {
+        if (operadores.equals("+")) {
 
             operador1 = Double.parseDouble(txt_visor.getText().toString().trim());
             limparVisor();
 
-        } else if (operadores == "-") {
+        } else if (operadores.equals("-")) {
 
             operador1 = Double.parseDouble(txt_visor.getText().toString().trim());
             limparVisor();
 
-        } else if (operadores == "*") {
+        } else if (operadores.equals("*")) {
 
             operador1 = Double.parseDouble(txt_visor.getText().toString().trim());
             limparVisor();
 
-        } else if (operadores == "/") {
+        } else if (operadores.equals("/")) {
 
             operador1 = Double.parseDouble(txt_visor.getText().toString().trim());
             limparVisor();
@@ -194,19 +201,19 @@ public class MainFragment  extends Fragment implements View.OnClickListener {
 
         if(!txt_visor.getText().toString().trim().equals("")){
 
-            if (operadores == "+") {
+            if (operadores.equals("+")) {
 
                 operador2 = operador1 + Double.parseDouble(txt_visor.getText().toString().trim());
 
-            } else if (operadores == "-") {
+            } else if (operadores.equals("-")) {
 
                 operador2 = operador1 - Double.parseDouble(txt_visor.getText().toString().trim());
 
-            } else if (operadores == "*") {
+            } else if (operadores.equals("*")) {
 
                 operador2 = operador1 * Double.parseDouble(txt_visor.getText().toString().trim());
 
-            } else if (operadores == "/") {
+            } else if (operadores.equals("/")) {
 
                 if(operador1 == 0){
 
@@ -305,16 +312,21 @@ public class MainFragment  extends Fragment implements View.OnClickListener {
                 ponto(".");
                 break;
 
-           /* case R.id.bt_sair:
-                AlertUtils.alert(getActivity(), "Fechar",
-                        "Deseja realmente fechar a aplicação:", R.string.sim, new AlertUtils.DialogCallback() {
-                            @Override
-                            public void dialogcallback() {
-                                getActivity().finish();
-                            }
+            case R.id.capt:
+                Double pegarValor;
+                pegarValor = operador2;
 
-                        });
-                break;*/
+                if (pegarValor!= 0.0){
+                    Intent intent = new Intent(getContext(),MainActivity.class);
+                    intent.putExtra("valor", Double.toString(pegarValor));
+                    getContext().startActivity(intent);
+                    getActivity().finish();
+
+                }else{
+                    Toast.makeText(getContext(), "NÃO É PERMITIDO VALORES ZERADOS", Toast.LENGTH_LONG).show();
+                }
+
+                break;
 
             case R.id.bt_soma:
 

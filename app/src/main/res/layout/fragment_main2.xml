@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
+    android:background="#AFB2B4"
     android:stretchColumns="0,1,2,3">
 
     <TableRow
@@ -15,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_column="0"
+            android:textColor="#040404"
             android:layout_span="4"
             android:layout_weight="1"
             android:background="@android:drawable/editbox_background"
@@ -40,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="70dp"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:layout_column="0"
             android:text="@string/sete" />
 
@@ -48,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="70dp"
             android:layout_column="1"
+            android:background="@drawable/press_login"
             android:layout_weight="1"
             android:text="@string/oito" />
 
@@ -57,6 +61,7 @@
             android:layout_height="70dp"
             android:layout_column="2"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/nove" />
 
         <Button
@@ -65,6 +70,7 @@
             android:layout_height="70dp"
             android:layout_column="3"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/divisao" />
 
     </TableRow>
@@ -81,6 +87,7 @@
             android:layout_height="70dp"
             android:layout_column="0"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/quatro" />
 
         <Button
@@ -89,6 +96,7 @@
             android:layout_height="70dp"
             android:layout_column="1"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/cinco" />
 
         <Button
@@ -97,6 +105,7 @@
             android:layout_height="70dp"
             android:layout_column="2"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/seis" />
 
         <Button
@@ -105,6 +114,7 @@
             android:layout_height="70dp"
             android:layout_column="3"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/multi" />
 
     </TableRow>
@@ -121,6 +131,7 @@
             android:layout_height="70dp"
             android:layout_column="0"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/um" />
 
         <Button
@@ -128,6 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="70dp"
             android:layout_column="1"
+            android:background="@drawable/press_login"
             android:layout_weight="1"
             android:text="@string/dois" />
 
@@ -137,6 +149,7 @@
             android:layout_height="70dp"
             android:layout_column="2"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/tres" />
 
         <Button
@@ -145,6 +158,7 @@
             android:layout_height="70dp"
             android:layout_column="3"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/subt" />
 
     </TableRow>
@@ -161,6 +175,7 @@
             android:layout_height="70dp"
             android:layout_column="0"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/ponto" />
 
         <Button
@@ -169,6 +184,7 @@
             android:layout_height="70dp"
             android:layout_column="1"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/zero" />
 
         <Button
@@ -176,6 +192,7 @@
             android:layout_width="wrap_content"
             android:layout_height="70dp"
             android:layout_column="2"
+            android:background="@drawable/press_login"
             android:layout_weight="1"
             android:text="@string/igual" />
 
@@ -185,6 +202,7 @@
             android:layout_height="70dp"
             android:layout_column="3"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/soma" />
 
     </TableRow>
@@ -202,6 +220,7 @@
             android:layout_column="0"
             android:layout_span="2"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/limpar" />
 
         <Button
@@ -211,6 +230,7 @@
             android:layout_column="2"
             android:layout_span="2"
             android:layout_weight="1"
+            android:background="@drawable/press_login"
             android:text="@string/capt" />
 
     </TableRow>

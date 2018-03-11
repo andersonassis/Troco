@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
     var i: Int = 0
     var vlr: Int = 0
     var ct: Int? = 0
-
+    var valorCalculadora:String =""
+    var valorCalculadora2:Double = 0.0
     //arrays troco
     var notas = arrayOf(100, 50, 20, 10, 5, 2, 1)
     var centavos = arrayOf(50, 25, 10, 5, 1)
@@ -36,6 +37,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        try {
+            valorCalculadora = intent.getStringExtra("valor")
+
+            if (!valorCalculadora.equals("")){
+               // valorCalculadora = valor_a_pagar.text.toString()
+                valor_a_pagar.setText(valorCalculadora)
+
+            }
+
+
+        }catch (e: Exception ){
+            e.printStackTrace()
+        }
+
 
         // click botão calcular
         calcular.setOnClickListener {
@@ -58,6 +75,8 @@ class MainActivity : AppCompatActivity() {
             textoTroco.setText("")//text view
             texto_centavos.setText("")//text view
             textomoedas.setText("")
+            valorCalculadora =""
+
         }
 
     }//fim do oncreate
@@ -65,68 +84,133 @@ class MainActivity : AppCompatActivity() {
 
     //função para calcular
     fun calcula() {
-        //pegando os valores nos editText em string
-        conta = valor_a_pagar.text.toString()
-        pago = valor_pago.text.toString()
-        if (conta != "" && pago != "") {
-            //converte as strings em double
-            var valorConta: Double = conta.toDouble()
-            var valorPago: Double = pago.toDouble()
+        if (!valorCalculadora.equals("")){
+            // valorCalculadora = valor_a_pagar.text.toString()
+             pago = valor_pago.text.toString()
+            if (valorCalculadora != "" && pago != "") {
+                //converte as strings em double
+                var valorConta: Double = valorCalculadora.toDouble()
+                var valorPago: Double = pago.toDouble()
 
-            //calculo do troco
-            if (valorPago < valorConta) {
-                Toast.makeText(this@MainActivity, "Valor insuficiente para o pagamento", Toast.LENGTH_SHORT).show()
-            } else {
+                //calculo do troco
+                if (valorPago < valorConta) {
+                    Toast.makeText(this@MainActivity, "Valor insuficiente para o pagamento", Toast.LENGTH_SHORT).show()
+                } else {
+                    //valor do troco mostra no texview
+                    troco = valorConta - valorPago
+                    val formatado = String.format("%.2f", troco)//formata com casas decimais
+                    textoTroco.setText("VALOR DE TROCO É:  " + formatado + " R$")
 
-                //valor do troco mostra no texview
-                troco = valorConta - valorPago
-                val formatado = String.format("%.2f", troco)//formata com casas decimais
-                textoTroco.setText("VALOR DE TROCO É:  " + formatado + " R$")
+                    //Notas do troco
+                    // definindo as notas e moedas  para o troco em inteiro
+                    try {
+                        vlr = troco.toInt()//convertendo para inteiro
+                        while (vlr != 0) {
+                            ct = vlr / notas[i] //calcula a qtd de notas
+                            if (ct != 0) {
+                                if (i == 6) { // AQUI moedas de 1 real
 
-                //Notas do troco
-                // definindo as notas e moedas  para o troco em inteiro
-                try {
-                    vlr = troco.toInt()//convertendo para inteiro
-                    while (vlr != 0) {
-                        ct = vlr / notas[i] //calcula a qtd de notas
-                        if (ct != 0) {
-                            if (i == 6) { // AQUI moedas de 1 real
+                                    result += ("$ct" + " MOEDA de R$ " + notas[i] + "\n")
+                                } else {
 
-                                result += ("$ct" + " MOEDA de R$ " + notas[i] + "\n")
-                            } else {
+                                    result += ("$ct" + " NOTA(s) de R$ " + notas[i] + "\n")
+                                }
 
-                                result += ("$ct" + " NOTA(s) de R$ " + notas[i] + "\n")
+                                vlr = vlr % notas[i]
                             }
-
-                            vlr = vlr % notas[i]
+                            i = i + 1; // próxima nota
+                            textomoedas.setText(result)//text view
                         }
-                        i = i + 1; // próxima nota
-                        textomoedas.setText(result)//text view
+
+                        // valores centavos fração
+                        vlr = Math.round((troco - troco.toInt()) * 100).toInt()
+                        i = 0
+                        while (vlr != 0) {
+                            ct = vlr / centavos[i]
+                            if (ct != 0) {
+                                resultCent += ("$ct" + " MOEDA(s) de " + centavos[i] + " Centavos(s) \n")
+                                vlr = vlr % centavos[i]
+
+                            }
+                            i = i + 1; // próxima nota
+                            texto_centavos.setText(resultCent)//text view
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
 
-                    // valores centavos fração
-                    vlr = Math.round((troco - troco.toInt()) * 100).toInt()
-                    i = 0
-                    while (vlr != 0) {
-                        ct = vlr / centavos[i]
-                        if (ct != 0) {
-                            resultCent += ("$ct" + " MOEDA(s) de " + centavos[i] + " Centavos(s) \n")
-                            vlr = vlr % centavos[i]
-
-                        }
-                        i = i + 1; // próxima nota
-                        texto_centavos.setText(resultCent)//text view
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
                 }
 
+            } else {
+                Toast.makeText(this@MainActivity, "NÃO É PERMITIDO CAMPOS EM BRANCO", Toast.LENGTH_SHORT).show();
             }
 
-        } else {
-            Toast.makeText(this@MainActivity, "NÃO É PERMITIDO CAMPOS EM BRANCO", Toast.LENGTH_SHORT).show();
-        }
 
+        }else {
+
+            //pegando os valores nos editText em string
+            conta = valor_a_pagar.text.toString()
+            pago = valor_pago.text.toString()
+            if (conta != "" && pago != "") {
+                //converte as strings em double
+                var valorConta: Double = conta.toDouble()
+                var valorPago: Double = pago.toDouble()
+
+                //calculo do troco
+                if (valorPago < valorConta) {
+                    Toast.makeText(this@MainActivity, "Valor insuficiente para o pagamento", Toast.LENGTH_SHORT).show()
+                } else {
+
+                    //valor do troco mostra no texview
+                    troco = valorConta - valorPago
+                    val formatado = String.format("%.2f", troco)//formata com casas decimais
+                    textoTroco.setText("VALOR DE TROCO É:  " + formatado + " R$")
+
+                    //Notas do troco
+                    // definindo as notas e moedas  para o troco em inteiro
+                    try {
+                        vlr = troco.toInt()//convertendo para inteiro
+                        while (vlr != 0) {
+                            ct = vlr / notas[i] //calcula a qtd de notas
+                            if (ct != 0) {
+                                if (i == 6) { // AQUI moedas de 1 real
+
+                                    result += ("$ct" + " MOEDA de R$ " + notas[i] + "\n")
+                                } else {
+
+                                    result += ("$ct" + " NOTA(s) de R$ " + notas[i] + "\n")
+                                }
+
+                                vlr = vlr % notas[i]
+                            }
+                            i = i + 1; // próxima nota
+                            textomoedas.setText(result)//text view
+                        }
+
+                        // valores centavos fração
+                        vlr = Math.round((troco - troco.toInt()) * 100).toInt()
+                        i = 0
+                        while (vlr != 0) {
+                            ct = vlr / centavos[i]
+                            if (ct != 0) {
+                                resultCent += ("$ct" + " MOEDA(s) de " + centavos[i] + " Centavos(s) \n")
+                                vlr = vlr % centavos[i]
+
+                            }
+                            i = i + 1; // próxima nota
+                            texto_centavos.setText(resultCent)//text view
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+
+                }
+
+            } else {
+                Toast.makeText(this@MainActivity, "NÃO É PERMITIDO CAMPOS EM BRANCO", Toast.LENGTH_SHORT).show();
+            }
+
+        }//fim do else intent
     }//FIM DA FUNÇÃO CALCULAR
 
 
@@ -139,6 +223,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    fun valorCalculadora(){
+
+
+
+    }
 
     // INICIO DOS MENU calculadora
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
