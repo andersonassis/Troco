@@ -150,9 +150,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.calc) { // CLICK DO BOTÃO CALCULADORA
-            /*val intent = Intent(applicationContext, Sobre::class.java)
+            val intent = Intent(applicationContext, Calculadora::class.java)
             startActivity(intent)
-            return true*/
+            return true
         }
         return super.onOptionsItemSelected(item)
     }//fim do menu sobre

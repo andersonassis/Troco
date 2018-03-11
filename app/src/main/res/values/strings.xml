@@ -20,8 +20,10 @@
 
     <string name="ponto">.</string>
     <string name="igual">=</string>
-    <string name="limpar">C</string>
-    <string name="sair">Capturar calculos</string>
+    <string name="limpar">Limpar</string>
+    <string name="capt">Usar calculos</string>
+    <string name="sair">Sair</string>
+
     <!-- AlertDialog buttons -->
     <string name="sim">Sim</string>
     <string name="nao">Não</string>

@@ -1,5 +1,6 @@
 package andersonassis.com.br.troco
 
+import andersonassis.com.br.troco.FragmentCalc.MainFragment
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
@@ -10,8 +11,7 @@ class Calculadora : AppCompatActivity() {
         setContentView(R.layout.activity_calculadora)
 
         if (savedInstanceState == null) {
-
-          //  supportFragmentManager.beginTransaction().add(R.id.activity_calculadora, MainFragment()).commit()
+            supportFragmentManager.beginTransaction().add(R.id.activity_calculadora, MainFragment()).commit()
 
         }
     }//fim do oncreate
