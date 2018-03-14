@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     var vlr: Int = 0
     var ct: Int? = 0
     var valorCalculadora:String =""
-    var valorCalculadora2:Double = 0.0
     //arrays troco
     var notas = arrayOf(100, 50, 20, 10, 5, 2, 1)
     var centavos = arrayOf(50, 25, 10, 5, 1)
@@ -42,17 +41,15 @@ class MainActivity : AppCompatActivity() {
         try {
             valorCalculadora = intent.getStringExtra("valor")
 
-            if (!valorCalculadora.equals("")){
-               // valorCalculadora = valor_a_pagar.text.toString()
-                valor_a_pagar.setText(valorCalculadora)
+            if (!valorCalculadora.equals(""))
+                {
+                  valor_a_pagar.setText(valorCalculadora)
 
-            }
-
-
-        }catch (e: Exception ){
-            e.printStackTrace()
-        }
-
+                }
+        }catch (e: Exception )
+           {
+              e.printStackTrace()
+           }
 
         // click botão calcular
         calcular.setOnClickListener {
@@ -91,14 +88,14 @@ class MainActivity : AppCompatActivity() {
                 //converte as strings em double
                 var valorConta: Double = valorCalculadora.toDouble()
                 var valorPago: Double = pago.toDouble()
-
+                troco = valorConta - valorPago
+                val formatado = String.format("%.2f", troco)//formata com casas decimais
                 //calculo do troco
                 if (valorPago < valorConta) {
-                    Toast.makeText(this@MainActivity, "Valor insuficiente para o pagamento", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(this@MainActivity, "Valor insuficiente para o pagamento "+ "falta "+formatado+" R$", Toast.LENGTH_SHORT).show()
                 } else {
                     //valor do troco mostra no texview
-                    troco = valorConta - valorPago
-                    val formatado = String.format("%.2f", troco)//formata com casas decimais
                     textoTroco.setText("VALOR DE TROCO É:  " + formatado + " R$")
 
                     //Notas do troco
@@ -155,15 +152,13 @@ class MainActivity : AppCompatActivity() {
                 //converte as strings em double
                 var valorConta: Double = conta.toDouble()
                 var valorPago: Double = pago.toDouble()
-
+                troco = valorConta - valorPago
+                val formatado = String.format("%.2f", troco)//formata com casas decimais
                 //calculo do troco
                 if (valorPago < valorConta) {
-                    Toast.makeText(this@MainActivity, "Valor insuficiente para o pagamento", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "Valor insuficiente para o pagamento "+ "falta "+formatado+" R$", Toast.LENGTH_SHORT).show()
                 } else {
-
                     //valor do troco mostra no texview
-                    troco = valorConta - valorPago
-                    val formatado = String.format("%.2f", troco)//formata com casas decimais
                     textoTroco.setText("VALOR DE TROCO É:  " + formatado + " R$")
 
                     //Notas do troco
@@ -224,11 +219,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun valorCalculadora(){
-
-
-
-    }
 
     // INICIO DOS MENU calculadora
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -138,14 +138,14 @@ public class MainFragment  extends Fragment implements View.OnClickListener {
             limparVisor();
             String textvisor = txt_visor.getText().toString();
             String numero = String.valueOf(leNumero);
-            aux = textvisor + numero;
+            aux = textvisor + numero  ;
             txt_visor.setText(aux);
 
         } else {
 
             String textvisor = txt_visor.getText().toString();
             String numero = String.valueOf(leNumero);
-            aux = textvisor + numero;
+            aux = textvisor + numero ;
             txt_visor.setText(aux);
 
         }
@@ -162,7 +162,6 @@ public class MainFragment  extends Fragment implements View.OnClickListener {
 
     /* Função para limpar o visor */
     private void limparVisor() {
-
         txt_visor.setText("");
         operador2 = 0.0;
 
@@ -175,7 +174,8 @@ public class MainFragment  extends Fragment implements View.OnClickListener {
 
         if (operadores.equals("+")) {
 
-            operador1 = Double.parseDouble(txt_visor.getText().toString().trim());
+            operador1 = Double.parseDouble(txt_visor.getText().toString().trim()) ;
+
             limparVisor();
 
         } else if (operadores.equals("-")) {
@@ -237,11 +237,6 @@ public class MainFragment  extends Fragment implements View.OnClickListener {
 
     }
 
-    /** Haviam alguns erros no método onclick onde as chamadas 'id.bt_x' não estavam
-     * sendo reconhecias. Isso acontece, pois o id reference do componente fica armazenado
-     * na classe R do projeto e o caminho o pacote dessa classe não estava
-     * declarado no topo da classe (import com.blogspot.codigosandroid.calculadora.R),
-     * mas também pode ser feito como está abaixo "classe.atributo_identificaror.id_componente" */
     @Override
     public void onClick(View view) {
 
