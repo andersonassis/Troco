@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     var vlr: Int = 0
     var ct: Int? = 0
     var valorCalculadora:String =""
+    var verificarTextos:Boolean = false;
     //arrays troco
     var notas = arrayOf(100, 50, 20, 10, 5, 2, 1)
     var centavos = arrayOf(50, 25, 10, 5, 1)
@@ -53,8 +54,16 @@ class MainActivity : AppCompatActivity() {
 
         // click botão calcular
         calcular.setOnClickListener {
-            calcula()
-            escondeTeclado()
+            //verifica textos preenchidos com funçãoa aqui
+            verificarTextos =  verificaTextos()
+
+            if (verificarTextos) {
+                calcula()
+                escondeTeclado()
+            }else{
+                Toast.makeText(this@MainActivity, "POR FAVOR LIMPE OS CAMPOS PARA UM NOVO CALCULO", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         //botão limpar limpa todas as variaveis
@@ -216,6 +225,16 @@ class MainActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(valor_pago.getWindowToken(), 0)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
+    }
+
+    //funcão para verificar de os textos estão preenchidos
+    fun verificaTextos():Boolean{
+        var textoPreenchidoTroco = textoTroco.text
+
+        if (textoPreenchidoTroco != ""){
+            return false
+        }
+           return true
     }
 
 
