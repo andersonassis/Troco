@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Calcula Troco</string>
+    <string name="app_name">Troco correto</string>
     <!-- Teclado Numérico -->
     <string name="um">1</string>
     <string name="dois">2</string>

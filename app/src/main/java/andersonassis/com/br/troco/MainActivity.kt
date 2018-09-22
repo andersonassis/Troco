@@ -15,7 +15,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.view.WindowManager
 
-
 class MainActivity : AppCompatActivity() {
     //declaração das variaveis
     var conta: String = ""
@@ -27,17 +26,16 @@ class MainActivity : AppCompatActivity() {
     var vlr: Int = 0
     var ct: Int? = 0
     var valorCalculadora:String =""
-    var verificarTextos:Boolean = false;
     //arrays troco
     var notas = arrayOf(100, 50, 20, 10, 5, 2, 1)
     var centavos = arrayOf(50, 25, 10, 5, 1)
+    var verificarTextos:Boolean = false;
 
 
     // metodo on Create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         try {
             valorCalculadora = intent.getStringExtra("valor")
@@ -56,7 +54,6 @@ class MainActivity : AppCompatActivity() {
         calcular.setOnClickListener {
             //verifica textos preenchidos com funçãoa aqui
             verificarTextos =  verificaTextos()
-
             if (verificarTextos) {
                 calcula()
                 escondeTeclado()
@@ -218,6 +215,17 @@ class MainActivity : AppCompatActivity() {
     }//FIM DA FUNÇÃO CALCULAR
 
 
+    //funcão para verificar de os textos estão preenchidos
+    fun verificaTextos():Boolean{
+        var textoPreenchidoTroco = textoTroco.text
+
+        if (textoPreenchidoTroco != ""){
+            return false
+        }
+        return true
+    }
+
+
      //função para esconder o teclado no click do calcular
     @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     fun escondeTeclado() {
@@ -226,18 +234,6 @@ class MainActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
     }
-
-    //funcão para verificar de os textos estão preenchidos
-    fun verificaTextos():Boolean{
-        var textoPreenchidoTroco = textoTroco.text
-
-        if (textoPreenchidoTroco != ""){
-            return false
-        }
-           return true
-    }
-
-
 
     // INICIO DOS MENU calculadora
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
